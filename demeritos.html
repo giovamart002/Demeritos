@@ -1,12 +1,491 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ControlDemeritos</title>
+    <title>Sistema de Control de Deméritos</title>
+    <link rel="stylesheet" href="Demeritos.css">
 </head>
 <body>
-    <h1>Demeritos</h1>
+    <div class="container">
+        
+        <!-- Barra Lateral de Navegación -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">📋 Deméritos</h1>
+                <p class="sidebar-subtitle">Sistema de Control</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-module="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="#" class="nav-link" data-module="centro-educativo">
+                    <span class="nav-icon">🏫</span>
+                    <span class="nav-text">Centro Educativo</span>
+                </a>
+                <a href="#" class="nav-link" data-module="estudiantes">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Estudiantes</span>
+                </a>
+                <a href="#" class="nav-link" data-module="registrar-tarjeta">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Registrar Tarjeta</span>
+                </a>
+                <a href="#" class="nav-link" data-module="historial">
+                    <span class="nav-icon">📜</span>
+                    <span class="nav-text">Historial</span>
+                </a>
+                <a href="#" class="nav-link" data-module="reportes">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Reportes</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="btn-reset" id="btnReset">
+                    <span>🔄</span> Resetear Datos
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            
+            <!-- Encabezado Superior -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2 class="page-title" id="pageTitle">Bienvenido al Sistema</h2>
+                    <p class="page-subtitle" id="pageSubtitle">Gestiona los deméritos de los estudiantes de forma eficiente</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="user-icon">👤</span>
+                        <span class="user-name">Administrador</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Contenedor de Módulos -->
+            <div class="modules-container">
+                
+                <!-- MÓDULO: Dashboard -->
+                <section id="dashboard" class="module active">
+                    <div class="module-header">
+                        <h3>📊 Dashboard</h3>
+                        <p>Estadísticas generales del sistema</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏫</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Centros Educativos</p>
+                                <p class="stat-value" id="totalCentros">0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">👨‍🎓</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Total de Estudiantes</p>
+                                <p class="stat-value" id="totalEstudiantes">0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Tarjetas Registradas</p>
+                                <p class="stat-value" id="totalTarjetas">0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Deméritos Registrados</p>
+                                <p class="stat-value" id="totalDemeritos">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- MÓDULO: Centro Educativo -->
+                <section id="centro-educativo" class="module">
+                    <div class="module-header">
+                        <h3>🏫 Centro Educativo</h3>
+                        <p>Registra los datos del centro educativo</p>
+                    </div>
+                    
+                    <div class="form-container">
+                        <form id="formCentroEducativo" class="form">
+                            <div class="form-group">
+                                <label for="nombreCentro">Nombre del Centro Educativo</label>
+                                <input type="text" id="nombreCentro" placeholder="Nombre completo del centro" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="codigoCentro">Código del Centro (5 dígitos)</label>
+                                <input type="text" id="codigoCentro" placeholder="Ej: 12345" maxlength="5" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="departamento">Departamento</label>
+                                    <input type="text" id="departamento" placeholder="Ej: San Salvador" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="municipio">Municipio</label>
+                                    <input type="text" id="municipio" placeholder="Ej: San Salvador Sur" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="distrito">Distrito</label>
+                                <input type="text" id="distrito" placeholder="Ej: Panchimalco" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">💾 Guardar Centro</button>
+                                <button type="reset" class="btn btn-secondary">🔄 Limpiar</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Código</th>
+                                    <th>Departamento</th>
+                                    <th>Municipio</th>
+                                    <th>Distrito</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableCentros">
+                                <tr class="empty-row">
+                                    <td colspan="6">No hay centros educativos registrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- MÓDULO: Gestión de Estudiantes -->
+                <section id="estudiantes" class="module">
+                    <div class="module-header">
+                        <h3>👥 Gestión de Estudiantes</h3>
+                        <p>Administra el registro de estudiantes</p>
+                    </div>
+                    
+                    <div class="form-container">
+                        <form id="formEstudiante" class="form">
+                            <div class="form-group">
+                                <label for="centroEstudiante">Centro Educativo</label>
+                                <select id="centroEstudiante" required>
+                                    <option value="">Seleccionar centro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="nie">NIE (Número de Identificación)</label>
+                                <input type="text" id="nie" placeholder="Ej: EST-2024-001" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="nombreEstudiante">Nombre Completo</label>
+                                <input type="text" id="nombreEstudiante" placeholder="Nombre del estudiante" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="sexoEstudiante">Sexo</label>
+                                    <select id="sexoEstudiante" required>
+                                        <option value="">Seleccionar sexo</option>
+                                        <option value="Hombre">Hombre</option>
+                                        <option value="Mujer">Mujer</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gradoEstudiante">Grado</label>
+                                    <select id="gradoEstudiante" required>
+                                        <option value="">Seleccionar grado</option>
+                                        <option value="1">1er Grado</option>
+                                        <option value="2">2do Grado</option>
+                                        <option value="3">3er Grado</option>
+                                        <option value="4">4to Grado</option>
+                                        <option value="5">5to Grado</option>
+                                        <option value="6">6to Grado</option>
+                                        <option value="7">7mo Grado</option>
+                                        <option value="8">8vo Grado</option>
+                                        <option value="9">9no Grado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="seccionEstudiante">Sección</label>
+                                    <select id="seccionEstudiante" required>
+                                        <option value="">Seleccionar sección</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="turnoEstudiante">Turno</label>
+                                    <select id="turnoEstudiante" required>
+                                        <option value="">Seleccionar turno</option>
+                                        <option value="Matutino">Matutino</option>
+                                        <option value="Vespertino">Vespertino</option>
+                                        <option value="Nocturno">Nocturno</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">💾 Guardar Estudiante</button>
+                                <button type="reset" class="btn btn-secondary">🔄 Limpiar</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="search-container">
+                        <input type="text" id="searchEstudiante" placeholder="🔍 Buscar estudiante...">
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>NIE</th>
+                                    <th>Nombre</th>
+                                    <th>Sexo</th>
+                                    <th>Grado</th>
+                                    <th>Sección</th>
+                                    <th>Turno</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableEstudiantes">
+                                <tr class="empty-row">
+                                    <td colspan="7">No hay estudiantes registrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- MÓDULO: Registrar Tarjeta de Deméritos -->
+                <section id="registrar-tarjeta" class="module">
+                    <div class="module-header">
+                        <h3>📝 Registrar Tarjeta de Deméritos</h3>
+                        <p>Completa los datos de la tarjeta del estudiante</p>
+                    </div>
+                    
+                    <div class="form-container">
+                        <form id="formTarjeta" class="form">
+                            
+                            <!-- Datos del Estudiante -->
+                            <fieldset class="form-fieldset">
+                                <legend>Datos del Estudiante</legend>
+                                
+                                <div class="form-group">
+                                    <label for="tarjetaEstudiante">Seleccionar Estudiante</label>
+                                    <select id="tarjetaEstudiante" required>
+                                        <option value="">Seleccionar estudiante</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fechaTarjeta">Fecha</label>
+                                    <input type="date" id="fechaTarjeta" required>
+                                </div>
+                            </fieldset>
+                            
+                            <!-- Deméritos -->
+                            <fieldset class="form-fieldset">
+                                <legend>Demérito</legend>
+                                
+                                <div class="form-group">
+                                    <label for="demerito">Tipo de Demérito</label>
+                                    <select id="demerito">
+                                        <option value="">Seleccionar demérito (opcional)</option>
+                                        <option value="A">A - No saludar al entrar o salir del aula</option>
+                                        <option value="B">B - Omitir "Por favor" al hacer una petición</option>
+                                        <option value="C">C - Omitir "Gracias" al recibir un favor</option>
+                                        <option value="D">D - Usar un tono grosero o irrespetuoso</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                            
+                            <!-- Redención -->
+                            <fieldset class="form-fieldset">
+                                <legend>Redención</legend>
+                                
+                                <div class="form-group">
+                                    <label for="redencion">Tipo de Redención</label>
+                                    <select id="redencion">
+                                        <option value="">Seleccionar redención (opcional)</option>
+                                        <option value="A">A - Cumplir una semana con saludos y cortesía ejemplares</option>
+                                        <option value="B">B - Apoyar en actividades de orden y limpieza</option>
+                                        <option value="C">C - Participar en campañas de valores</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                            
+                            <!-- Reconocimiento -->
+                            <fieldset class="form-fieldset">
+                                <legend>Reconocimiento</legend>
+                                
+                                <div class="form-group">
+                                    <label for="reconocimiento">Tipo de Reconocimiento</label>
+                                    <select id="reconocimiento">
+                                        <option value="">Seleccionar reconocimiento (opcional)</option>
+                                        <option value="A">A - Diploma</option>
+                                        <option value="B">B - Mención en mural escolar</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                            
+                            <!-- Firmas -->
+                            <fieldset class="form-fieldset">
+                                <legend>Firmas y Autorizaciones</legend>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nombreRegistra">Nombre de Quien Registra</label>
+                                        <input type="text" id="nombreRegistra" placeholder="Nombre completo">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="firmaRegistra">Firma de Quien Registra</label>
+                                        <input type="text" id="firmaRegistra" placeholder="Firma digital o inicial">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nombreResponsable">Nombre Responsable de Redención</label>
+                                        <input type="text" id="nombreResponsable" placeholder="Nombre completo">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="firmaResponsable">Firma Responsable de Redención</label>
+                                        <input type="text" id="firmaResponsable" placeholder="Firma digital o inicial">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="firmaEstudiante">Firma del Estudiante</label>
+                                    <input type="text" id="firmaEstudiante" placeholder="Firma digital o inicial">
+                                </div>
+                            </fieldset>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">📝 Registrar Tarjeta</button>
+                                <button type="reset" class="btn btn-secondary">🔄 Limpiar</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                
+                <!-- MÓDULO: Historial -->
+                <section id="historial" class="module">
+                    <div class="module-header">
+                        <h3>📜 Historial de Tarjetas</h3>
+                        <p>Visualiza todos los registros de tarjetas</p>
+                    </div>
+                    
+                    <div class="filters-container">
+                        <input type="text" id="filterEstudiante" placeholder="🔍 Filtrar por estudiante...">
+                        <input type="date" id="filterFecha">
+                        <button class="btn btn-secondary" id="btnLimpiarFiltros">🔄 Limpiar Filtros</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Estudiante</th>
+                                    <th>Demérito</th>
+                                    <th>Redención</th>
+                                    <th>Reconocimiento</th>
+                                    <th>Registrado Por</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableHistorial">
+                                <tr class="empty-row">
+                                    <td colspan="7">No hay tarjetas registradas</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- MÓDULO: Reportes -->
+                <section id="reportes" class="module">
+                    <div class="module-header">
+                        <h3>📈 Reportes</h3>
+                        <p>Genera reportes del sistema</p>
+                    </div>
+                    
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <h4>📊 Estudiantes con Más Deméritos</h4>
+                            <button class="btn btn-primary" id="btnReporteDemeritosAltos">Generar Reporte</button>
+                        </div>
+                        
+                        <div class="report-card">
+                            <h4>📋 Historial Completo</h4>
+                            <button class="btn btn-primary" id="btnReporteHistorialCompleto">Generar Reporte</button>
+                        </div>
+                        
+                        <div class="report-card">
+                            <h4>🏫 Reporte por Centro</h4>
+                            <button class="btn btn-primary" id="btnReportePorCentro">Generar Reporte</button>
+                        </div>
+                        
+                        <div class="report-card">
+                            <h4>📅 Reporte por Fecha</h4>
+                            <button class="btn btn-primary" id="btnReportePorFecha">Generar Reporte</button>
+                        </div>
+                    </div>
+                    
+                    <div id="reporteContenido" class="reporte-contenido"></div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
     
+    <!-- Modal de Confirmación -->
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Acción</h3>
+            <p id="modalMensaje"></p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="btnConfirmar">Confirmar</button>
+                <button class="btn btn-secondary" id="btnCancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notificaciones -->
+    <div id="notificacion" class="notificacion"></div>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 </html>
